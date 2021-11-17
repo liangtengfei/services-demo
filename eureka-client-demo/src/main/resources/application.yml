@@ -1,0 +1,18 @@
+server:
+  port: 8001
+
+eureka:
+  instance:
+    status-page-url: /info
+    status-page-url-path: /health
+    hostname: localhost
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+spring:
+  application:
+    name: eureka-client1
