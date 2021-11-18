@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
 
-    @GetMapping("/client/sayHi")
+    @GetMapping("/sayHi")
     public String sayHi(@RequestParam(defaultValue = "Eureka") String username) {
         return "Hi：" + username;
+    }
+
+    @GetMapping("/sayHi2")
+    public String sayHi2(@RequestParam(defaultValue = "Eureka") String username) {
+        return "Hi2：" + username;
     }
 }

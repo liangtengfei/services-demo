@@ -6,6 +6,7 @@ eureka:
     status-page-url: /info
     status-page-url-path: /health
     hostname: localhost
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
   client:
     healthcheck:
       enabled: true

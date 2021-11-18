@@ -24,7 +24,9 @@
 
     <modules>
         <module>eureka-server-demo</module>
+        <module>eureka-client-api</module>
         <module>eureka-client-demo</module>
+        <module>service-consumer-demo</module>
     </modules>
 
     <dependencies>
