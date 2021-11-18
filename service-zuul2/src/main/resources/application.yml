@@ -1,0 +1,33 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: service-zuul2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: routes
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+# request url: http://127.0.0.1:9001/eureka-client1/client1/sayHi
+zuul:
+  routes:
+    zuul:
+      id: /client1/**
+      serverId: eureka-client1
+#  prefix: /client1
+#  routes:
+#    eureka-client1:
+#      path: /client1/**
+#      serverId: eureka-client1

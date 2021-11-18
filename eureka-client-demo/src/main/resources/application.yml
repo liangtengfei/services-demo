@@ -1,5 +1,7 @@
 server:
   port: 8001
+  servlet:
+    context-path: /client1
 
 eureka:
   instance:
@@ -17,3 +19,6 @@ eureka:
 spring:
   application:
     name: eureka-client1
+feign:
+  hystrix:
+    enabled: true

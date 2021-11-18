@@ -27,6 +27,7 @@
         <module>eureka-client-api</module>
         <module>eureka-client-demo</module>
         <module>service-consumer-demo</module>
+        <module>service-zuul2</module>
     </modules>
 
     <dependencies>

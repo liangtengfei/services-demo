@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
 
     @GetMapping("/sayHi")
-    public String sayHi(@RequestParam(defaultValue = "Eureka") String username) {
+    public String sayHi(@RequestParam(defaultValue = "Eureka", value = "username") String username) {
         return "Hi：" + username;
     }
 
     @GetMapping("/sayHi2")
-    public String sayHi2(@RequestParam(defaultValue = "Eureka") String username) {
+    public String sayHi2(@RequestParam(defaultValue = "Eureka", value = "username") String username) {
         return "Hi2：" + username;
     }
 }
