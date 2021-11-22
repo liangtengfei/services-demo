@@ -1,0 +1,24 @@
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+spring:
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    virtual-host: /
+  cloud:
+    config:
+      #      没有注册在eureka时 可以使用uri进行配置
+      #      uri: http://127.0.0.1:9002
+      name: zuul2
+      profile: prod
+      label: master
+      discovery:
+        enabled: true
+        service-id: config-server

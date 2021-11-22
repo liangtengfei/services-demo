@@ -21,11 +21,14 @@ eureka:
     fetch-registry: true
 
 # request url: http://127.0.0.1:9001/eureka-client1/client1/sayHi
-zuul:
-  routes:
-    zuul:
-      id: /client1/**
-      serverId: eureka-client1
+#zuul:
+#  routes:
+#    eureka-client1: /c1/**
+#    service-consumer: /c2/**
+#  ignored-services: '*'
+
+## *表示不为所有的服务创建默认的路由规则，则需要我们自己配置路由规则。
+## 路由信息：/actuator/routes/details
 #  prefix: /client1
 #  routes:
 #    eureka-client1:

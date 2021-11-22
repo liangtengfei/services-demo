@@ -1,0 +1,50 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/jimijiang2/config-server-repository-git.git
+          force-pull: true
+          basedir: /Users/tengfeiliang/work/IdeaProjects/config-server-repository-git
+          search-paths: "{profile}"
+          default-label: master
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    virtual-host: /
+
+
+
+eureka:
+  instance:
+    status-page-url: /info
+    status-page-url-path: /health
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+management:
+  endpoints:
+    web:
+      base-path: "/admin"
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true

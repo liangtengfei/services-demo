@@ -1,8 +1,15 @@
 package com.liangtf.servicezuul2.filter;
 
 import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author: tengfeiliang
@@ -10,9 +17,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class RequestFilter extends ZuulFilter {
+    private final Logger logger = LoggerFactory.getLogger(RequestFilter.class);
+
     @Override
     public String filterType() {
-        return "pre";
+        return "post";
     }
 
     @Override
@@ -27,7 +36,13 @@ public class RequestFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println("访问时间：" + System.currentTimeMillis());
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        LocalDateTime now = LocalDateTime.now();
+        String nowStr = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String url = request.getRemoteHost() + ":" + request.getRequestURI();
+        String resCode = currentContext.getResponseBody();
+        logger.info("{} ---- 远程地址：{}, 方法：{}, 结果：{}", nowStr, request.getRequestURI(), request.getMethod(), resCode);
         return null;
     }
 }

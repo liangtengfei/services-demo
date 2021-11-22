@@ -4,8 +4,10 @@ import com.liangtf.serviceconsumer.service.ConsumerHelloService;
 import com.liangtf.springcloud.api.HelloServiceApi;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +19,11 @@ import java.util.List;
  * @author: tengfeiliang
  * @Date: 2021/11/17 19:47
  */
+@RefreshScope
 @RestController
 public class ConsumerIndexController {
+    @Value("${remark:}")
+    private String remark;
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
@@ -39,7 +44,7 @@ public class ConsumerIndexController {
         ServiceInstance instance = instanceList.get(0);
 
         // 使用了LoadBalanced 时 就需要使用 服务名 不能使用host
-        String url = "http://" + instance.getServiceId() + ":" + instance.getPort() + "/sayHi?username=" + username;
+        String url = "http://" + instance.getServiceId() + ":" + instance.getPort() + "/client1/sayHi?username=" + username;
         System.out.println(url);
         return restTemplate.getForObject(url, String.class);
     }
@@ -64,6 +69,6 @@ public class ConsumerIndexController {
     // 调用consumer的服务 自己调用自己
     @GetMapping("/sayHi2")
     public String sayHi22(@RequestParam(defaultValue = "Eureka", value = "username") String username) {
-        return "Consumer say hi：" + username;
+        return "Consumer say hi：" + username + " " + remark;
     }
 }
